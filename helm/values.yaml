@@ -27,11 +27,11 @@ oauthProxyPort: 4180
 
 resources:
   requests:
-    cpu: "500m"
-    memory: "1Gi"
-  limits:
     cpu: "2"
     memory: "4Gi"
+  limits:
+    cpu: "6"
+    memory: "8Gi"
 
 # Storage for Open WebUI data (models cache, database, etc.)
 storage:
