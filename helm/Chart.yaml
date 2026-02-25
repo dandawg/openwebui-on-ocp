@@ -1,0 +1,13 @@
+apiVersion: v2
+name: openwebui
+description: Open WebUI - A user-friendly web interface for LLMs
+type: application
+version: 1.0.0
+appVersion: "latest"
+keywords:
+  - llm
+  - ai
+  - chatbot
+  - open-webui
+maintainers:
+  - name: Red Hat AI Americas

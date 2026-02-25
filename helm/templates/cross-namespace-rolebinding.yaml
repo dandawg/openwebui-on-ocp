@@ -1,0 +1,40 @@
+---
+# Optional: grant Open WebUI SA access to list/get InferenceServices in RHOAI model namespace.
+# Set rhoai.modelNamespace to the namespace where your InferenceServices run (e.g. demo-models).
+{{- if .Values.rhoai.modelNamespace }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: inferenceservice-user
+  namespace: {{ .Values.rhoai.modelNamespace }}
+  labels:
+    app: openwebui
+  annotations:
+    argocd.argoproj.io/sync-wave: "40"
+rules:
+  - apiGroups:
+      - serving.kserve.io
+    resources:
+      - inferenceservices
+    verbs:
+      - get
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: openwebui-inferenceservice-access
+  namespace: {{ .Values.rhoai.modelNamespace }}
+  labels:
+    app: openwebui
+  annotations:
+    argocd.argoproj.io/sync-wave: "40"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: inferenceservice-user
+subjects:
+  - kind: ServiceAccount
+    name: openwebui
+    namespace: {{ .Values.namespace }}
+{{- end }}

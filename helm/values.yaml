@@ -1,0 +1,43 @@
+# Default values for Open WebUI
+namespace: demo-apps
+
+# OAuth proxy (OpenShift login in front of Open WebUI)
+oauthProxy:
+  # Cookie secret for session encryption (should be 16, 24, or 32 bytes in production)
+  cookieSecret: "SECRET"
+  # Absolute URL to redirect to after logout (e.g. OpenShift OAuth logout).
+  # Set to your cluster's OAuth logout URL so users can sign out and re-auth.
+  # Example: "https://oauth-openshift.apps.<your-cluster>/logout"
+  # Leave empty to disable logout redirect.
+  logoutUrl: ""
+
+image:
+  repository: ghcr.io/open-webui/open-webui
+  tag: main
+  pullPolicy: IfNotPresent
+
+replicas: 1
+
+service:
+  type: ClusterIP
+  port: 8080
+
+# OAuth proxy listens on 4180 in-pod; app listens on 8080
+oauthProxyPort: 4180
+
+resources:
+  requests:
+    cpu: "500m"
+    memory: "1Gi"
+  limits:
+    cpu: "2"
+    memory: "4Gi"
+
+# Storage for Open WebUI data (models cache, database, etc.)
+storage:
+  size: 10Gi
+  storageClassName: ""  # Use default storage class
+
+# Optional: RHOAI model namespace for cross-namespace RBAC (list/get InferenceServices)
+rhoai:
+  modelNamespace: ""

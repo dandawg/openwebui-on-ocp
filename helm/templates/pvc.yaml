@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openwebui-storage
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: openwebui
+  annotations:
+    argocd.argoproj.io/sync-wave: "41"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.storage.size }}
+{{- if .Values.storage.storageClassName }}
+  storageClassName: {{ .Values.storage.storageClassName }}
+{{- end }}

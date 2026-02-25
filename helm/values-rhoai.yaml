@@ -1,0 +1,25 @@
+# RHOAI-specific overrides for Open WebUI
+# Configure Open WebUI to use RHOAI InferenceServices as OpenAI-compatible endpoints
+
+namespace: demo-apps
+
+# Optional: namespace where RHOAI InferenceServices run (enables cross-namespace RBAC)
+rhoai:
+  modelNamespace: "demo"
+
+# Environment variables for Open WebUI (connect to RHOAI via OpenAI-compatible API)
+env:
+  # Disable telemetry
+  - name: WEBUI_TELEMETRY_ENABLED
+    value: "false"
+  # Allow connecting to internal RHOAI endpoints (OpenAI-compatible)
+  - name: OPENAI_API_BASE_URL
+    value: "http://RHOAI_INFERENCE_SERVICE_URL/v1"
+  # Optional: set OPENAI_API_KEY to empty for in-cluster access
+  - name: OPENAI_API_KEY
+    value: ""
+
+# Storage configuration
+storage:
+  size: 20Gi
+  storageClassName: ""
