@@ -1,0 +1,13 @@
+# ConfigMap for OpenShift to inject the service CA bundle.
+# Pods can trust in-cluster TLS (e.g. RHOAI InferenceServices) by using this CA.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openwebui-service-ca
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: openwebui
+  annotations:
+    argocd.argoproj.io/sync-wave: "40"
+    service.beta.openshift.io/inject-cabundle: "true"
+data: {}

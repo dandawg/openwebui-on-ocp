@@ -47,15 +47,30 @@ spec:
           env:
             - name: WEBUI_AUTH
               value: "true"
+            # Trust OpenShift service CA for in-cluster TLS (e.g. RHOAI InferenceServices)
+            - name: REQUESTS_CA_BUNDLE
+              value: /etc/pki/tls/certs/service-ca.crt
+            - name: SSL_CERT_FILE
+              value: /etc/pki/tls/certs/service-ca.crt
 {{- if .Values.env }}
 {{- toYaml .Values.env | nindent 12 }}
 {{- end }}
           volumeMounts:
             - name: storage
               mountPath: /app/backend/data
+            - name: service-ca
+              mountPath: /etc/pki/tls/certs
+              readOnly: true
           resources:
 {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: storage
           persistentVolumeClaim:
             claimName: openwebui-storage
+        - name: service-ca
+          configMap:
+            name: openwebui-service-ca
+            items:
+              - key: service-ca.crt
+                path: service-ca.crt
+            optional: true

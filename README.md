@@ -107,13 +107,17 @@ storage:
   size: 20Gi
 ```
 
+### In-cluster TLS (RHOAI / self-signed certs)
+
+The chart mounts the **OpenShift service CA** bundle and sets `REQUESTS_CA_BUNDLE` and `SSL_CERT_FILE` so Open WebUI trusts in-cluster TLS (e.g. RHOAI InferenceServices that use service-serving certificates). No need to disable SSL verification for demo use.
+
 ### RHOAI model namespace (cross-namespace RBAC)
 
 If Open WebUI needs to discover InferenceServices in another namespace, set:
 
 ```yaml
 rhoai:
-  modelNamespace: "demo-models"
+  modelNamespace: "demo"
 ```
 
 This creates a Role and RoleBinding in that namespace so the Open WebUI service account can list/get InferenceServices.
