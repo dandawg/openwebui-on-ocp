@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/YOUR_ORG/openwebui-on-ocp.git
+    repoURL: https://github.com/dandawg/openwebui-on-ocp.git
     targetRevision: main
     path: helm
     helm:
