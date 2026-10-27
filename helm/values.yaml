@@ -13,7 +13,7 @@ oauthProxy:
 
 image:
   repository: ghcr.io/open-webui/open-webui
-  tag: main
+  tag: v0.12.4
   pullPolicy: IfNotPresent
 
 replicas: 1

@@ -3,7 +3,7 @@ name: openwebui
 description: Open WebUI - A user-friendly web interface for LLMs
 type: application
 version: 1.0.0
-appVersion: "latest"
+appVersion: "0.12.4"
 keywords:
   - llm
   - ai
